@@ -1,16 +1,22 @@
+using Ambedo.Models;
+using Ambedo.Models.Options;
+using Ambedo.Repositories;
+using Ambedo.Repositories.Interfaces;
+using Ambedo.Services;
+using Ambedo.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Bson.Serialization.Serializers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Ambedo.API
 {
@@ -26,12 +32,29 @@ namespace Ambedo.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
+            JsonConvert.DefaultSettings = () =>
+            {
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new StringEnumConverter());
+                settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                return settings;
+            };
+            services.AddControllers().AddNewtonsoftJson(cntx =>
+            {
+                cntx.SerializerSettings.Converters.Add(new StringEnumConverter());
+                cntx.UseCamelCasing(true);
+            });
+            services.Configure<DatabaseOptions>(Configuration.GetSection(DatabaseOptions.KEY));
+            services.AddSingleton<IDatabaseContext, DatabaseContext>();
+            services.AddScoped<IThootlesService, ThootlesService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ambedo.API", Version = "v1" });
             });
+            services.AddSwaggerGenNewtonsoftSupport();
+
+            ConventionRegistry.Register("main", new ConventionPack { new CamelCaseElementNameConvention() }, (_) => true);
+            BsonSerializer.RegisterSerializer(new EnumSerializer<ThootleCategories>(BsonType.String));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +64,10 @@ namespace Ambedo.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ambedo.API v1"));
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ambedo.API v1");
+                });
             }
 
             app.UseHttpsRedirection();
