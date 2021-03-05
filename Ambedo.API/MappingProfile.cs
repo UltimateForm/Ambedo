@@ -11,6 +11,7 @@ namespace Ambedo.API
         {
             CreateMap<Thootle, Dtos.Thootle>().ReverseMap();
             CreateMap<ThootleCategories, Dtos.ThootleCategories>().ReverseMap();
+            CreateMap<Dtos.UnidentifiedThootle, Thootle>();
             CreateMap<ReplaceOneResult, Dtos.ReplaceOneResult>();
             CreateMap<DeleteResult, Dtos.DeleteResult>();
         }

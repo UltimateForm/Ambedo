@@ -38,6 +38,7 @@ namespace Ambedo.Models
     public record Thootle
     {
         [BsonId]
+        [BsonIgnoreIfDefault]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; init; }
         public string Content { get; init; }
