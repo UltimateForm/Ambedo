@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
@@ -14,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ambedo.Contract\Ambedo.Contract.csproj" />
     <ProjectReference Include="..\Ambedo.Repository\Ambedo.Repositories.csproj" />
     <ProjectReference Include="..\Ambedo.Services\Ambedo.Services.csproj" />
   </ItemGroup>

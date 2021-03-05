@@ -17,6 +17,7 @@ using MongoDB.Bson.Serialization.Serializers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using System.Reflection;
 
 namespace Ambedo.API
 {
@@ -46,6 +47,7 @@ namespace Ambedo.API
             });
             services.Configure<DatabaseOptions>(Configuration.GetSection(DatabaseOptions.KEY));
             services.AddSingleton<IDatabaseContext, DatabaseContext>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IThootlesService, ThootlesService>();
             services.AddSwaggerGen(c =>
             {
