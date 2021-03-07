@@ -6,7 +6,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Dtos=Ambedo.Contract.Dtos;
+using Dtos = Ambedo.Contract.Dtos;
 namespace Ambedo.API.Controllers
 {
     [ApiController]
@@ -25,16 +25,13 @@ namespace Ambedo.API.Controllers
         public async Task<ActionResult<Dtos.Thootle>> Post([FromBody] Dtos.UnidentifiedThootle data)
         {
             var result = await _service.CreateThootle(_mapper.Map<Dtos.UnidentifiedThootle, Thootle>(data));
-            return CreatedAtAction(nameof(GetOne), new { id=result.Id },_mapper.Map<Thootle, Dtos.Thootle>(result));
+            return CreatedAtAction(nameof(GetOne), new { id = result.Id }, _mapper.Map<Thootle, Dtos.Thootle>(result));
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Dtos.Thootle>>> Get([FromQuery] Dtos.ThootleFilter filter)
+        public async Task<ActionResult<IEnumerable<Dtos.Thootle>>> Get([FromQuery] string filter)
         {
-            var result = await _service.GetThootles(JsonConvert.SerializeObject(filter, new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore
-            }));
+            var result = await _service.GetThootles(filter);
             return Ok(_mapper.Map<IEnumerable<Thootle>, IEnumerable<Dtos.Thootle>>(result));
         }
 

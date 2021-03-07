@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ambedo.Contract.Dtos
+﻿namespace Ambedo.Contract.Dtos
 {
     public record ReplaceOneResult
     {

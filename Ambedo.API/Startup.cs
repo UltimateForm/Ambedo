@@ -5,6 +5,7 @@ using Ambedo.Repositories.Interfaces;
 using Ambedo.Services;
 using Ambedo.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ using MongoDB.Bson.Serialization.Serializers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using System;
 using System.Reflection;
 
 namespace Ambedo.API
@@ -46,6 +48,11 @@ namespace Ambedo.API
                 cntx.UseCamelCasing(true);
             });
             services.Configure<DatabaseOptions>(Configuration.GetSection(DatabaseOptions.KEY));
+            var dbConfig = Configuration.GetSection(DatabaseOptions.KEY).Get<DatabaseOptions>();
+            services.AddHealthChecks().AddMongoDb(dbConfig.ConnectionString.Replace("<password>", Configuration["Database:Password"]),
+                                                  name: "database",
+                                                  timeout: TimeSpan.FromSeconds(5),
+                                                  tags: new []{ "ready" });
             services.AddSingleton<IDatabaseContext, DatabaseContext>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IThootlesService, ThootlesService>();
@@ -81,6 +88,8 @@ namespace Ambedo.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = (check) => check.Tags.Contains("ready") } );
+                endpoints.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = (_) => false });
             });
         }
     }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ambedo.Contract.Dtos
+﻿namespace Ambedo.Contract.Dtos
 {
     public class ThootleFilter
     {
-        public string Content { get; init; }
-        public IEnumerable<ThootleCategories> Categories { get; init; }
+        public object Id { get; init; }
+        public object Content { get; init; }
+        public object Categories { get; init; }
     }
 }
