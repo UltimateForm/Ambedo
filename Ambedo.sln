@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ambedo.Services", "Ambedo.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ambedo.Repositories", "Ambedo.Repository\Ambedo.Repositories.csproj", "{14718B92-D6E1-4A25-A8EB-1B2A4AA2F6C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambedo.Contract", "Ambedo.Contract\Ambedo.Contract.csproj", "{4AFF3C1A-7951-4C32-989F-963A92D49061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ambedo.Contract", "Ambedo.Contract\Ambedo.Contract.csproj", "{4AFF3C1A-7951-4C32-989F-963A92D49061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambedo.UI", "Ambedo.UI\Ambedo.UI.csproj", "{D95B7DDB-6825-48A3-8973-634018A8F1DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{4AFF3C1A-7951-4C32-989F-963A92D49061}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AFF3C1A-7951-4C32-989F-963A92D49061}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AFF3C1A-7951-4C32-989F-963A92D49061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D95B7DDB-6825-48A3-8973-634018A8F1DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D95B7DDB-6825-48A3-8973-634018A8F1DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D95B7DDB-6825-48A3-8973-634018A8F1DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D95B7DDB-6825-48A3-8973-634018A8F1DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
