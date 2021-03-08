@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 
 namespace Ambedo.Models
@@ -43,5 +44,8 @@ namespace Ambedo.Models
         public string Id { get; init; }
         public string Content { get; init; }
         public IEnumerable<ThootleCategories> Categories { get; init; }
+        public DateTime? CreatedTimeUtc { get; init; }
+
+        public Thootle() => CreatedTimeUtc ??= DateTime.UtcNow;
     }
 }

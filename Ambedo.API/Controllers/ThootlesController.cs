@@ -3,7 +3,6 @@ using Ambedo.Services.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dtos = Ambedo.Contract.Dtos;

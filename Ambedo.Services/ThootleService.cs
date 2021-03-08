@@ -1,4 +1,5 @@
-﻿using Ambedo.Models;
+﻿using System;
+using Ambedo.Models;
 using Ambedo.Repositories.Interfaces;
 using Ambedo.Services.Interfaces;
 using MongoDB.Driver;
@@ -17,7 +18,7 @@ namespace Ambedo.Services
             _thootles = _databaseContext.Thootles;
         }
 
-        public FilterDefinition<Thootle> GetIdFilter(string id)
+        protected static FilterDefinition<Thootle> GetIdFilter(string id)
         {
             var builder = Builders<Thootle>.Filter;
             var idFilter = builder.Eq(t => t.Id, id);

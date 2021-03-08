@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ambedo.Contract.Dtos
 {
@@ -37,5 +38,6 @@ namespace Ambedo.Contract.Dtos
         public string Id { get; init; }
         public string Content { get; init; }
         public IEnumerable<ThootleCategories> Categories { get; init; }
+        public DateTime CreatedTimeUtc { get; init; }
     }
 }
