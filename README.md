@@ -1,3 +1,5 @@
+[![.NET](https://github.com/UltimateForm/Ambedo/actions/workflows/dotnet.yml/badge.svg)](https://github.com/UltimateForm/Ambedo/actions/workflows/dotnet.yml)
+
 # Ambedo
 
 Verses notebook I guess
