@@ -1,0 +1,29 @@
+﻿@using Blazorise
+@using Ambedo.Contract.Dtos;
+
+<div id="sidebar_root">
+	<div class="textBoxContainer">
+		<TextEdit Placeholder="Thootle text" @bind-Text="@thootleText" />
+	</div>
+	<Select TValue="int" Multiple="true" >
+		@foreach(var category in inputCategories){
+			<SelectItem Value="@category.Id">@category.Value</SelectItem>
+		}
+	</Select>
+	<div class="horizontalButtonContainer">
+		<Button Block="true" Color="Color.Primary">Create</Button>
+		<Button Block="true" Color="Color.Secondary">Filter</Button>
+	</div>
+</div>
+ 
+@code {
+
+	record ThootleCategoryInput
+	{
+		public int Id { get; init; }
+		public string Value { get; init; }
+	}
+	string thootleText { get; set; }
+	IEnumerable<ThootleCategoryInput> inputCategories = Enum.GetNames(typeof(ThootleCategories)).Select((name, index) => new ThootleCategoryInput { Id = index, Value = name});
+	int[] selectedCategories {get; set;}
+}

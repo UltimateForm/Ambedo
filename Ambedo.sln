@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ambedo.Repositories", "Ambe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ambedo.Contract", "Ambedo.Contract\Ambedo.Contract.csproj", "{4AFF3C1A-7951-4C32-989F-963A92D49061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambedo.UI", "Ambedo.UI\Ambedo.UI.csproj", "{D95B7DDB-6825-48A3-8973-634018A8F1DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ambedo.UI", "Ambedo.UI\Ambedo.UI.csproj", "{D95B7DDB-6825-48A3-8973-634018A8F1DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

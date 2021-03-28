@@ -1,7 +1,27 @@
-﻿@page "/"
+﻿@page "/";
+@using Ambedo.UI.Data.Services.Interfaces
+@using Ambedo.Contract.Dtos
+@inject IDataService dataService;
 
-<h1>Hello, world!</h1>
+@if (thootles == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<div>
+	@foreach (var thootle in thootles)
+			{
+				<div className="thootleItem">@thootle.Content</div>
+			}
+	</div>
 
-Welcome to your new app.
+}
+@code {
+	public IEnumerable<Thootle> thootles { get; set; }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+	protected override async Task OnInitializedAsync()
+	{
+		thootles = await dataService.GetThootlesAsync();
+	}
+}

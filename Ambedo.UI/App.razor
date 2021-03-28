@@ -1,10 +1,76 @@
-<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-    </Found>
-    <NotFound>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p>Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+@page "/";
+@using Ambedo.UI.Data.Services.Interfaces
+@using Ambedo.Contract.Dtos
+@using Blazorise
+@using Blazorise.Components 
+@inject IDataService dataService;
+
+
+<Sidebar></Sidebar>
+@*@if (thootles == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<div id="rootContainer">
+		<div class="cardContainer formContainer">			
+			<Card>
+				<CardBody>
+					<CardBody>
+						<CardTitle Color="TextColor.Secondary" Size="5">
+							<TextEdit></TextEdit>
+						</CardTitle>
+						<CardText>
+							<Select TValue="int" Multiple="true">
+								@foreach(var item in myDdlData)
+								{
+									<SelectItem Value="item.MyValueField">@item.MyTextField</SelectItem>
+								}
+							</Select>
+
+						</CardText>
+					</CardBody>
+				</CardBody>
+			</Card>
+		</div>
+
+			@foreach (var thootle in thootles)
+			{
+				<div class="cardContainer">
+					<Card Background="Background.Primary">
+						<CardBody>
+							<CardTitle Color="TextColor.Secondary" Size="5">@thootle.Content</CardTitle>
+							<CardText>
+								@thootle.Categories.Select(c => c.ToString()).Aggregate((current, next) => $"{current} | {next}")
+							</CardText>
+						</CardBody>
+					</Card>
+				</div>
+
+			}
+		
+	</div>
+
+}*@
+
+@code {
+	public class MySelectModel
+	{
+		public int MyValueField { get; set; }
+		public string MyTextField { get; set; }
+	}
+	public IEnumerable<Thootle> thootles { get; set; }
+	IEnumerable<MySelectModel> myDdlData = Enum.GetNames(typeof(ThootleCategories)).Select((n, i) => new MySelectModel {MyValueField = i, MyTextField = n});
+	protected override async Task OnInitializedAsync()
+	{
+		//thootles = await dataService.GetThootlesAsync();
+	}
+	int selectedListValue { get; set; } = 3;
+
+	void MyListValueChangedHandler( int newValue )
+	{
+		selectedListValue = newValue;
+		StateHasChanged();
+	}
+}

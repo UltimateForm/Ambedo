@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using Ambedo.UI.Data.Options;
 using Ambedo.UI.Data.Services;
 using Ambedo.UI.Data.Services.Interfaces;
+using Blazorise;
+using Blazorise.Icons.Material;
+using Blazorise.Material;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -24,7 +27,10 @@ namespace Ambedo.UI
             builder.Services.Configure<AmbedoAPIOptions>(c => builder.Configuration.GetSection(AmbedoAPIOptions.Key).Bind(c));
             builder.Services.AddScoped<IDataService, DataService>();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            builder.Services.AddBlazorise(options =>
+            {
+                options.ChangeTextOnKeyPress = true;
+            }).AddMaterialProviders().AddMaterialIcons();
             await builder.Build().RunAsync();
         }
     }
