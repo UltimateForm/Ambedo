@@ -1,9 +1,8 @@
 ﻿#sidebar_root {
-	height: 100%;
-	width: 30%;
-	background-color: cornflowerblue;
+	/*height: 100%;*/
 	padding: 1rem;
-	box-shadow: 4px -1px 11px 0px rgba(100,149, 237, 0.5);
+	width: 100%;
+	/*box-shadow: 4px -1px 11px 0px rgba(100,149, 237, 0.5);*/
 }
 
 .textBoxContainer {
@@ -15,7 +14,12 @@
 	margin-bottom: 1rem;
 }
 
-#horizontalButtonContainer {
-	display: flex;
-	flex-direction: row;
+.horizontalButtonContainer {
+	display: grid;
+	grid-template-columns: 47.5% 47.5%;
+	grid-gap: 5%;
+}
+
+.horizontalButtonContainer > .btn-block {
+	margin-top: 0px !important; <-- yes beats me, they (blazorize) add that margin-top for some reason so im doing cleanup -->
 }

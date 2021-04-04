@@ -4,37 +4,21 @@
 @using Blazorise
 @using Blazorise.Components 
 @inject IDataService dataService;
+<Blazorise.ThemeProvider Theme="@theme">
+	<Layout Sider="true" Loading="thootles==null || thootles.Count==0">
+		<LayoutSider>
+			<LayoutSiderContent>
+				<Bar Mode="BarMode.VerticalInline"
+					 CollapseMode="BarCollapseMode.Small"
+					 Breakpoint="Breakpoint.Desktop"
+					 NavigationBreakpoint="Breakpoint.Tablet"
+					 ThemeContrast="ThemeContrast.Dark">
+					<Sidebar></Sidebar>
 
-
-<Sidebar></Sidebar>
-@*@if (thootles == null)
-{
-	<p><em>Loading...</em></p>
-}
-else
-{
-	<div id="rootContainer">
-		<div class="cardContainer formContainer">			
-			<Card>
-				<CardBody>
-					<CardBody>
-						<CardTitle Color="TextColor.Secondary" Size="5">
-							<TextEdit></TextEdit>
-						</CardTitle>
-						<CardText>
-							<Select TValue="int" Multiple="true">
-								@foreach(var item in myDdlData)
-								{
-									<SelectItem Value="item.MyValueField">@item.MyTextField</SelectItem>
-								}
-							</Select>
-
-						</CardText>
-					</CardBody>
-				</CardBody>
-			</Card>
-		</div>
-
+				</Bar>
+			</LayoutSiderContent>
+		</LayoutSider>
+		<LayoutContent>
 			@foreach (var thootle in thootles)
 			{
 				<div class="cardContainer">
@@ -49,28 +33,22 @@ else
 				</div>
 
 			}
-		
-	</div>
-
-}*@
+		</LayoutContent>
+	</Layout>
+</Blazorise.ThemeProvider>
 
 @code {
-	public class MySelectModel
+	private Theme theme = new Theme
 	{
-		public int MyValueField { get; set; }
-		public string MyTextField { get; set; }
-	}
-	public IEnumerable<Thootle> thootles { get; set; }
-	IEnumerable<MySelectModel> myDdlData = Enum.GetNames(typeof(ThootleCategories)).Select((n, i) => new MySelectModel {MyValueField = i, MyTextField = n});
+		BarOptions = new ThemeBarOptions
+		{
+			VerticalWidth = "400px"
+		}
+	};
+	public List<Thootle> thootles = new List<Thootle>();
 	protected override async Task OnInitializedAsync()
 	{
-		//thootles = await dataService.GetThootlesAsync();
-	}
-	int selectedListValue { get; set; } = 3;
-
-	void MyListValueChangedHandler( int newValue )
-	{
-		selectedListValue = newValue;
-		StateHasChanged();
+		var apiTootles = await dataService.GetThootlesAsync();
+		thootles.AddRange(apiTootles);
 	}
 }

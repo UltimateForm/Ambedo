@@ -8,8 +8,8 @@ html, body {
 #app {
 	height: 100%;
 	width: 100%;
-    background-color: darkslategray
-}
+/*    background-color: darkslategray
+*/}
 a, .btn-link {
     color: #0366d6;
 }
