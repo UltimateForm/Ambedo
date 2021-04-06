@@ -23,3 +23,14 @@
 .horizontalButtonContainer > .btn-block {
 	margin-top: 0px !important; <-- yes beats me, they (blazorize) add that margin-top for some reason so im doing cleanup -->
 }
+
+.transition_transparent {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.transition_visible {
+	opacity: 1;
+	transition: opacity 0.25s;
+	visibility: visible;
+}

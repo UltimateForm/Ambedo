@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
-using Ambedo.Contract.Dtos;
+﻿using Ambedo.Contract.Dtos;
 using Ambedo.UI.Data.Options;
 using Ambedo.UI.Data.Services.Interfaces;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 namespace Ambedo.UI.Data.Services
 {
@@ -34,11 +33,23 @@ namespace Ambedo.UI.Data.Services
                 });
                 return data;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Rest request failed with because: {e.Message}");
             }
         }
 
+        public async Task<int> PostThootleAsync(Thootle thootle)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync($"{_config.Url}/Thootles", thootle);
+                return (int)response.StatusCode;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Rest request failed with because: {e.Message}");
+            }
+        }
     }
 }

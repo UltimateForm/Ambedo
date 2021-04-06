@@ -3,7 +3,9 @@
 @using Ambedo.Contract.Dtos
 @using Blazorise
 @using Blazorise.Components 
+@using Ambedo.UI.Shared
 @inject IDataService dataService;
+
 <Blazorise.ThemeProvider Theme="@theme">
 	<Layout Sider="true" Loading="thootles==null || thootles.Count==0">
 		<LayoutSider>
@@ -13,16 +15,14 @@
 					 Breakpoint="Breakpoint.Desktop"
 					 NavigationBreakpoint="Breakpoint.Tablet"
 					 ThemeContrast="ThemeContrast.Dark">
-					<Sidebar></Sidebar>
-
+					<SidebarForm />
 				</Bar>
 			</LayoutSiderContent>
 		</LayoutSider>
-		<LayoutContent>
+		<LayoutContent Padding="Padding.Is2.OnAll" Class="cardsContainer">
 			@foreach (var thootle in thootles)
 			{
-				<div class="cardContainer">
-					<Card Background="Background.Primary">
+					<Card Background="Background.Dark" Margin="Margin.Is1.OnAll" ColumnSize="ColumnSize.Is2.OnDesktop.IsFull.OnMobile" >
 						<CardBody>
 							<CardTitle Color="TextColor.Secondary" Size="5">@thootle.Content</CardTitle>
 							<CardText>
@@ -30,7 +30,6 @@
 							</CardText>
 						</CardBody>
 					</Card>
-				</div>
 
 			}
 		</LayoutContent>
@@ -43,7 +42,7 @@
 		BarOptions = new ThemeBarOptions
 		{
 			VerticalWidth = "400px"
-		}
+		},
 	};
 	public List<Thootle> thootles = new List<Thootle>();
 	protected override async Task OnInitializedAsync()

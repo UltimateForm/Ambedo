@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Ambedo.Contract.Dtos;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ambedo.Contract.Dtos;
 
 namespace Ambedo.UI.Data.Services.Interfaces
 {

@@ -19,10 +19,15 @@
 	flex-wrap: wrap;
 }
 
-.cardContainer {
-	height: max-content;
+.cardsContainer {
+	display: flex;
+	flex-direction: row;
+	place-items: baseline;
+	flex-wrap: wrap;
+	place-content: baseline;
 }
 
 .formContainer {
 	width: max-content;
 }
+

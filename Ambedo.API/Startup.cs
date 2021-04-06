@@ -52,7 +52,7 @@ namespace Ambedo.API
             services.AddHealthChecks().AddMongoDb(dbConfig.ConnectionString.Replace("<password>", Configuration["Database:Password"]),
                                                   name: "database",
                                                   timeout: TimeSpan.FromSeconds(5),
-                                                  tags: new []{ "ready" });
+                                                  tags: new[] { "ready" });
             services.AddSingleton<IDatabaseContext, DatabaseContext>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IThootlesService, ThootlesService>();
@@ -86,13 +86,13 @@ namespace Ambedo.API
             {
                 options.AllowAnyOrigin();
             });
-            
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = (check) => check.Tags.Contains("ready") } );
+                endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = (check) => check.Tags.Contains("ready") });
                 endpoints.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = (_) => false });
             });
         }
