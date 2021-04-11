@@ -20,11 +20,16 @@
 }
 
 .cardsContainer {
+	width: 100%;
 	display: flex;
-	flex-direction: row;
-	place-items: baseline;
 	flex-wrap: wrap;
+	align-items: center;
 	place-content: baseline;
+}
+
+.cardsContainer > div {
+	flex: 1;
+	min-width: max-content;
 }
 
 .formContainer {

@@ -2,34 +2,33 @@
 @using Ambedo.UI.Data.Services.Interfaces
 @using Ambedo.Contract.Dtos
 @using Blazorise
-@using Blazorise.Components 
 @using Ambedo.UI.Shared
 @inject IDataService dataService;
 
 <Blazorise.ThemeProvider Theme="@theme">
 	<Layout Sider="true" Loading="thootles==null || thootles.Count==0">
 		<LayoutSider>
-			<LayoutSiderContent>
+			<LayoutSiderContent Style="z-index:1">
 				<Bar Mode="BarMode.VerticalInline"
 					 CollapseMode="BarCollapseMode.Small"
 					 Breakpoint="Breakpoint.Desktop"
 					 NavigationBreakpoint="Breakpoint.Tablet"
 					 ThemeContrast="ThemeContrast.Dark">
-					<SidebarForm />
+					<SidebarForm  OnFinishedPost="@OnFinishedPost" OnInitializedPost="@OnInitializedPost"/>
 				</Bar>
 			</LayoutSiderContent>
 		</LayoutSider>
 		<LayoutContent Padding="Padding.Is2.OnAll" Class="cardsContainer">
 			@foreach (var thootle in thootles)
 			{
-					<Card Background="Background.Dark" Margin="Margin.Is1.OnAll" ColumnSize="ColumnSize.Is2.OnDesktop.IsFull.OnMobile" >
-						<CardBody>
-							<CardTitle Color="TextColor.Secondary" Size="5">@thootle.Content</CardTitle>
-							<CardText>
-								@thootle.Categories.Select(c => c.ToString()).Aggregate((current, next) => $"{current} | {next}")
-							</CardText>
-						</CardBody>
-					</Card>
+				<Card ElementId="@thootle.Id" Background="Background.Dark" Margin="Margin.Is1.OnAll">
+					<CardBody>
+						<CardTitle Color="TextColor.Secondary" Size="5">@thootle.Content</CardTitle>
+						<CardText>
+							@thootle.Categories.DefaultIfEmpty().Select(c => c.ToString()).Aggregate((current, next) => $"{current} | {next}")
+						</CardText>
+					</CardBody>
+				</Card>
 
 			}
 		</LayoutContent>
@@ -41,13 +40,29 @@
 	{
 		BarOptions = new ThemeBarOptions
 		{
-			VerticalWidth = "400px"
-		},
+			VerticalWidth = "400px",
+		}
 	};
 	public List<Thootle> thootles = new List<Thootle>();
 	protected override async Task OnInitializedAsync()
 	{
+		await LoadThootles();
+	}
+
+	async Task LoadThootles()
+	{
 		var apiTootles = await dataService.GetThootlesAsync();
-		thootles.AddRange(apiTootles);
+		thootles.AddRange(apiTootles.Where(apiTootle => !thootles.Any(loadedThootle => apiTootle.Id == loadedThootle.Id)));
+		thootles.Sort((x, y) => DateTime.Compare(y.CreatedTimeUtc, x.CreatedTimeUtc));
+	}
+
+	void OnInitializedPost()
+	{
+
+	}
+
+	async Task OnFinishedPost()
+	{
+		await LoadThootles();
 	}
 }

@@ -1,6 +1,8 @@
 ﻿@using Blazorise
 @using Ambedo.Contract.Dtos;
 @using Blazorise.States;
+@using Ambedo.UI.Data.Services.Interfaces;
+@inject IDataService dataService;
 
 <BarBrand>
 	<BarItem>
@@ -8,7 +10,7 @@
 	</BarItem>
 </BarBrand>
 <Divider />
-<BarMenu Class="@(parentBarState.Visible? "transition_visible":"transition_transparent")" >
+<BarMenu Class="@(parentBarState.Visible? "transition_visible":"transition_transparent")">
 	<BarStart Padding="Padding.Is2.OnAll" Style="height:100%">
 		<BarItem>
 			<TextEdit Placeholder="Thootle text" @bind-Text="@thootleText" />
@@ -28,9 +30,9 @@
 	<BarEnd Padding="Padding.Is2.OnAll">
 		<BarItem>
 			<div class="horizontalButtonContainer">
-				<Button Clicked="@OnCreateButtonClicked" Block="true" Color="Color.Primary">Create</Button>
-				<Button Clicked="@OnFilterButtonClicked" Block="true" Color="Color.Secondary">Filter</Button>
-				<Button Clicked="@OnClearButtonClicked" Block="true" Color="Color.Warning">Clear</Button>
+				<Button Disabled="@(string.IsNullOrEmpty(thootleText) || selectedCategories == null || !selectedCategories.Any())" Clicked="@OnCreateButtonClicked" Block="true" Color="Color.Primary">Create</Button>
+				<Button Disabled="@(string.IsNullOrEmpty(thootleText) && (selectedCategories == null || !selectedCategories.Any()))" Clicked="@OnFilterButtonClicked" Block="true" Color="Color.Secondary">Filter</Button>
+				<Button Disabled="@(string.IsNullOrEmpty(thootleText) && (selectedCategories == null || !selectedCategories.Any()))" Clicked="@OnClearButtonClicked" Block="true" Color="Color.Warning">Clear</Button>
 			</div>
 		</BarItem>
 
@@ -39,6 +41,10 @@
 
 
 @code {
+	[Parameter]
+	public EventCallback OnInitializedPost { get; set; }
+	[Parameter]
+	public EventCallback OnFinishedPost { get; set; }
 	bool BarVisible { get; set; }
 	record ThootleCategoryInput
 	{
@@ -63,19 +69,38 @@
 		}
 	}
 
-	void OnCreateButtonClicked()
+	// @NOTE: i'm aware i could use an actual <form/> but seems overkill for me at this point
+	async Task OnCreateButtonClicked()
+	{
+		try
+		{
+			await OnInitializedPost.InvokeAsync();
+			await dataService.PostThootleAsync(new Thootle
+			{
+				Content = thootleText,
+				Categories = selectedCategories?.Select(index => (ThootleCategories)index)
+			});
+		}
+		finally
+		{
+			ClearForm();
+			await OnFinishedPost.InvokeAsync();
+		}
+	}
+
+	async Task OnFilterButtonClicked()
 	{
 
 	}
 
-	void OnFilterButtonClicked()
+	void ClearForm()
 	{
-
+		thootleText = "";
+		selectedCategories = null;
 	}
 
 	void OnClearButtonClicked()
 	{
-		thootleText = "";
-		selectedCategories = null;
+		ClearForm();
 	}
 }
