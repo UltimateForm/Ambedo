@@ -18,13 +18,13 @@
 	display: flex;
 }
 
-.horizontalButtonContainer > .btn-block {
+.horizontalButtonContainer .btn-block {
 	margin-left: 0.5rem !important;
 	margin-right: 0.5rem !important;
 	margin-top: 0px !important; /* for the record, i don't support this, but my hand has been forced by white america */
 }
 
-.horizontalButtonContainer > button:disabled {
+.horizontalButtonContainer button:disabled {
 	background-color: #757575;
 }
 

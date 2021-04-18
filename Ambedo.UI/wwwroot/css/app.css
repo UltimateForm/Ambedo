@@ -5,6 +5,10 @@ html, body {
 	height: 100vh;
 }
 
+::selection {
+    background: rgba(3, 218, 198, 0.25) !important; /*LISTEN BUDDY i dont like this either but there's a css file on material stuff that's adding its own selection background color and i don't like altering third party stuff ok?!*/
+}
+
 #app {
 	height: 100%;
 	width: 100%;

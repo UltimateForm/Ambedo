@@ -1,12 +1,7 @@
 @page "/";
-@using Ambedo.UI.Data.Services.Interfaces
-@using Ambedo.Contract.Dtos
-@using Blazorise
-@using Ambedo.UI.Shared
-@inject IDataService dataService;
 
 <Blazorise.ThemeProvider Theme="@theme">
-	<Layout Sider="true" Loading="thootles==null || thootles.Count==0">
+	<Layout Sider="true" Loading="thootles==null || thootles.Count==0 || Loading">
 		<LayoutSider>
 			<LayoutSiderContent Style="z-index:1">
 				<Bar Mode="BarMode.VerticalInline"
@@ -14,7 +9,7 @@
 					 Breakpoint="Breakpoint.Desktop"
 					 NavigationBreakpoint="Breakpoint.Tablet"
 					 ThemeContrast="ThemeContrast.Dark">
-					<SidebarForm  OnFinishedPost="@OnFinishedPost" OnInitializedPost="@OnInitializedPost"/>
+					<SidebarForm  OnFinishedPost="@OnFinishedPost" OnCreate="@OnCreate"/>
 				</Bar>
 			</LayoutSiderContent>
 		</LayoutSider>
@@ -34,35 +29,3 @@
 		</LayoutContent>
 	</Layout>
 </Blazorise.ThemeProvider>
-
-@code {
-	private Theme theme = new Theme
-	{
-		BarOptions = new ThemeBarOptions
-		{
-			VerticalWidth = "400px",
-		}
-	};
-	public List<Thootle> thootles = new List<Thootle>();
-	protected override async Task OnInitializedAsync()
-	{
-		await LoadThootles();
-	}
-
-	async Task LoadThootles()
-	{
-		var apiTootles = await dataService.GetThootlesAsync();
-		thootles.AddRange(apiTootles.Where(apiTootle => !thootles.Any(loadedThootle => apiTootle.Id == loadedThootle.Id)));
-		thootles.Sort((x, y) => DateTime.Compare(y.CreatedTimeUtc, x.CreatedTimeUtc));
-	}
-
-	void OnInitializedPost()
-	{
-
-	}
-
-	async Task OnFinishedPost()
-	{
-		await LoadThootles();
-	}
-}

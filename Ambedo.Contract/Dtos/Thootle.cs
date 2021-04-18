@@ -5,6 +5,7 @@ namespace Ambedo.Contract.Dtos
 {
     public enum ThootleCategories
     {
+        None,
         Admiration,
         Adoration,
         AestheticAppreciation,
