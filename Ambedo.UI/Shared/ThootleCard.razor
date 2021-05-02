@@ -1,3 +1,11 @@
-﻿<div>
-
-</div>
+﻿<Card ElementId="@Thootle.Id" Background="Background.Dark" Margin="Margin.Is1.OnAll">
+	<CardBody>
+		<CardTitle Color="TextColor.Secondary" Size="5">@Thootle.Content</CardTitle>
+		<CardText>
+			@Thootle.Categories.DefaultIfEmpty().Select(c => c.ToString()).Aggregate((current, next) => $"{current} | {next}")
+		</CardText>
+		<CardActions Float="Float.Right">
+			<button @onclick="Delete" class="btn btn-icon rounded-circle" type="button"><span class="material-icons color-red600">delete</span></button>
+		</CardActions>
+	</CardBody>
+</Card>

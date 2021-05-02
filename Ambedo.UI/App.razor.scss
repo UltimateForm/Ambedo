@@ -10,7 +10,6 @@
 	place-content: center;
 	place-items: center;
 	text-align: center;
-
 }
 
 #rootContainer {
@@ -19,20 +18,22 @@
 	flex-wrap: wrap;
 }
 
-.cardsContainer {
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	place-content: baseline;
+::deep {
+	.cardsContainer {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		place-content: baseline;
+
+		div {
+			flex: 1;
+			min-width: max-content;
+		}
+	}
 }
 
-.cardsContainer > div {
-	flex: 1;
-	min-width: max-content;
-}
 
 .formContainer {
 	width: max-content;
 }
-

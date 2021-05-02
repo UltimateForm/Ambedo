@@ -7,13 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazorise.Components" Version="0.9.3.4" />
-    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.3.4" />
-    <PackageReference Include="Blazorise.Icons.Material" Version="0.9.3.4" />
-    <PackageReference Include="Blazorise.Material" Version="0.9.3.4" />
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazorise.Components" Version="0.9.3.5" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.3.5" />
+    <PackageReference Include="Blazorise.Icons.Material" Version="0.9.3.5" />
+    <PackageReference Include="Blazorise.Material" Version="0.9.3.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.5" PrivateAssets="all" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
@@ -27,6 +35,10 @@
 
   <ItemGroup>
     <Folder Include="Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
 </Project>

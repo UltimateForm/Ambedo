@@ -22,6 +22,27 @@ namespace Ambedo.UI.Data.Services
             _config = options.Value;
         }
 
+        public async Task DeleteThootleAsync(string thootleId)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"{_config.Url}/Thootles/{thootleId}");
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception($"Response bad statuscode {response.StatusCode}");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Failed to delete thootle {thootleId} because: {e.Message}");
+            }
+        }
+
+        public Task DeleteThootleAsync(Thootle thootle)
+        {
+            return DeleteThootleAsync(thootle.Id);
+        }
+
         public async Task<IEnumerable<Thootle>> GetThootlesAsync()
         {
             try

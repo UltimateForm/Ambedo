@@ -50,5 +50,24 @@ namespace Ambedo.UI
 		{
 			await LoadThootles();
 		}
+
+		async Task OnThootleDelete(Thootle thootle)
+		{
+			Loading = true;
+			try
+			{
+				await DataService.DeleteThootleAsync(thootle);
+				thootles.Remove(thootle);
+            }
+            catch(Exception)
+            {
+				//ignore
+            }
+            finally
+            {
+				await LoadThootles();
+				Loading = false;
+			}
+		}
 	}
 }

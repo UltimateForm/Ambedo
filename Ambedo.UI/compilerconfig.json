@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Shared/SidebarForm.razor.css",
+    "inputFile": "Shared/SidebarForm.razor.scss"
+  },
+  {
+    "outputFile": "App.razor.css",
+    "inputFile": "App.razor.scss"
+  }
+]

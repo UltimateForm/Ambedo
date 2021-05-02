@@ -52,9 +52,24 @@ a, .btn-link {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+.transition_transparent {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.transition_visible {
+    opacity: 1;
+    transition: opacity 0.25s;
+    visibility: visible;
+}
+
+.color-red600 {
+    color: #E53935;
+}
