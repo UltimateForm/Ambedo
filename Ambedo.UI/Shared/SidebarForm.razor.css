@@ -1,23 +1,37 @@
-﻿#sidebar_root {
+#sidebar_root {
   /*height: 100%;*/
   padding: 1rem;
   width: 100%;
-  /*box-shadow: 4px -1px 11px 0px rgba(100,149, 237, 0.5);*/ }
-  #sidebar_root .custom-select {
-    height: 70%;
-    margin-bottom: 1rem; }
+  /*box-shadow: 4px -1px 11px 0px rgba(100,149, 237, 0.5);*/
+}
+
+#sidebar_root .custom-select {
+  height: 70%;
+  margin-bottom: 1rem;
+}
 
 .textBoxContainer {
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+}
 
 .horizontalButtonContainer {
-  display: flex; }
-  .horizontalButtonContainer ::deep {
-    /* pseudo elements dont work with css isolation in aspnet <3*/ }
-    .horizontalButtonContainer ::deep .btn-block {
-      margin-left: 0.5rem !important;
-      margin-right: 0.5rem !important;
-      margin-top: 0px !important;
-      /* for the record, i don't support this, but my hand has been forced by white america */ }
-      .horizontalButtonContainer ::deep .btn-block:disabled {
-        background-color: #757575; }
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.horizontalButtonContainer ::deep {
+  /* pseudo elements dont work with css isolation in aspnet <3*/
+}
+
+.horizontalButtonContainer ::deep .btn-block {
+  margin-left: 0.5rem !important;
+  margin-right: 0.5rem !important;
+  margin-top: 0px !important;
+  /* for the record, i don't support this, but my hand has been forced by white america */
+}
+
+.horizontalButtonContainer ::deep .btn-block:disabled {
+  background-color: #757575;
+}
+/*# sourceMappingURL=SidebarForm.razor.css.map */

@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 using Ambedo.UI.Data.Services.Interfaces;
 using Ambedo.Contract.Dtos;
 using Blazorise;
+using Fluxor;
+using Ambedo.UI.Store.Data;
 
 namespace Ambedo.UI
 {
-    public partial class App : ComponentBase
-    {
+	public partial class App
+	{
+
+		[Inject]
+		public IState<DataState> DataState { get; set; }
 		[Inject]
 		IDataService DataService { get; set; }
 		private readonly Theme theme = new Theme
@@ -36,15 +41,15 @@ namespace Ambedo.UI
 		async Task OnCreate(Thootle thootle)
 		{
 			Loading = true;
-            try
-            {
+			try
+			{
 				await DataService.PostThootleAsync(thootle);
 			}
 			finally
-            {
+			{
 				Loading = false;
-            }
-        }
+			}
+		}
 
 		async Task OnFinishedPost()
 		{
@@ -58,16 +63,21 @@ namespace Ambedo.UI
 			{
 				await DataService.DeleteThootleAsync(thootle);
 				thootles.Remove(thootle);
-            }
-            catch(Exception)
-            {
+			}
+			catch (Exception)
+			{
 				//ignore
-            }
-            finally
-            {
+			}
+			finally
+			{
 				await LoadThootles();
 				Loading = false;
 			}
+		}
+
+		async Task OnThootleEdit(Thootle thootle)
+		{
+
 		}
 	}
 }

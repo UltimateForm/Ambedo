@@ -10,23 +10,24 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using Fluxor;
 namespace Ambedo.UI
 {
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
-            builder.Services.Configure<AmbedoAPIOptions>(c => builder.Configuration.GetSection(AmbedoAPIOptions.Key).Bind(c));
-            builder.Services.AddScoped<IDataService, DataService>();
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddBlazorise(options =>
-            {
-                options.ChangeTextOnKeyPress = true;
-            }).AddMaterialProviders().AddMaterialIcons();
-            await builder.Build().RunAsync();
-        }
-    }
+	public class Program
+	{
+		public static async Task Main(string[] args)
+		{
+			var builder = WebAssemblyHostBuilder.CreateDefault(args);
+			builder.RootComponents.Add<App>("#app");
+			builder.Services.Configure<AmbedoAPIOptions>(c => builder.Configuration.GetSection(AmbedoAPIOptions.Key).Bind(c));
+			builder.Services.AddScoped<IDataService, DataService>();
+			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+			builder.Services.AddBlazorise(options =>
+			{
+				options.ChangeTextOnKeyPress = true;
+			}).AddMaterialProviders().AddMaterialIcons();
+			builder.Services.AddFluxor(options => options.ScanAssemblies(typeof(Program).Assembly));
+			await builder.Build().RunAsync();
+		}
+	}
 }

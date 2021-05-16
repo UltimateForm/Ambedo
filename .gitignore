@@ -339,3 +339,6 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /Ambedo.API/appsettings.production.json
+
+# mystuff
+*.css.map
