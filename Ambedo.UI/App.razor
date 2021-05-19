@@ -1,29 +1,24 @@
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @page "/";
 
-<Fluxor.Blazor.Web.StoreInitializer/>
+<Fluxor.Blazor.Web.StoreInitializer />
 <div>
 	<Blazorise.ThemeProvider Theme="@theme">
-		<Layout Sider="true" Loading="thootles==null || thootles.Count==0 || Loading">
+		<Layout Sider="true" Loading="Loading">
 			<LayoutSider>
 				<LayoutSiderContent Style="z-index:1">
-					<Bar Mode="BarMode.VerticalInline"
-						 CollapseMode="BarCollapseMode.Small"
-						 Breakpoint="Breakpoint.Desktop"
-						 NavigationBreakpoint="Breakpoint.Tablet"
-						 ThemeContrast="ThemeContrast.Dark"
-					>
+					<Bar Mode="BarMode.VerticalInline" CollapseMode="BarCollapseMode.Small" Breakpoint="Breakpoint.Desktop"
+						NavigationBreakpoint="Breakpoint.Tablet" ThemeContrast="ThemeContrast.Dark">
 						<SidebarForm OnFinishedPost="@OnFinishedPost" OnCreate="@OnCreate" />
 					</Bar>
 				</LayoutSiderContent>
 			</LayoutSider>
 			<LayoutContent Padding="Padding.Is2.OnAll" class="cardsContainer">
-				<span>@DataState.Value.Thootles.Count</span>
-				@foreach (var thootle in thootles)
+				@foreach (var thootle in DataState.Value.Thootles)
 				{
-					<ThootleCard Thootle="@thootle" OnDelete="@OnThootleDelete"  OnEdit="@OnThootleEdit"/>
+					<ThootleCard Thootle="@thootle" OnDelete="@OnThootleDelete" OnEdit="@OnThootleEdit" />
 				}
-			</LayoutContent>
-		</Layout>
-	</Blazorise.ThemeProvider>
+	 </LayoutContent>
+	</Layout>
+ </Blazorise.ThemeProvider>
 </div>

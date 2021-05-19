@@ -19,5 +19,19 @@ namespace Ambedo.UI.Store.Data
 			var thootles = await _dataService.GetThootlesAsync();
 			dispatcher.Dispatch(new FetchDataResultAction(thootles));
 		}
+
+		[EffectMethod]
+		public async Task HandleCreateDataAction(CreateDataAction action, IDispatcher dispatcher)
+		{
+			var response = await _dataService.PostThootleAsync(action.Thootle);
+			dispatcher.Dispatch(new FetchDataAction());
+		}
+
+		[EffectMethod]
+		public async Task HandleDeleteDataAction(DeleteDataAction action, IDispatcher dispatcher)
+		{
+			await _dataService.DeleteThootleAsync(action.Id);
+			dispatcher.Dispatch(new FetchDataAction());
+		}
 	}
 }

@@ -8,6 +8,7 @@ using Ambedo.Contract.Dtos;
 using Blazorise;
 using Fluxor;
 using Ambedo.UI.Store.Data;
+using Newtonsoft.Json;
 
 namespace Ambedo.UI
 {
@@ -17,7 +18,7 @@ namespace Ambedo.UI
 		[Inject]
 		public IState<DataState> DataState { get; set; }
 		[Inject]
-		IDataService DataService { get; set; }
+		IDispatcher Dispatcher { get; set; }
 		private readonly Theme theme = new Theme
 		{
 			BarOptions = new ThemeBarOptions
@@ -25,55 +26,27 @@ namespace Ambedo.UI
 				VerticalWidth = "400px",
 			},
 		};
-		private readonly List<Thootle> thootles = new List<Thootle>();
-		protected override async Task OnInitializedAsync()
+		protected override void OnInitialized()
 		{
-			await LoadThootles();
+			base.OnInitialized();
+			DataState.StateChanged += DataState_StateChanged;
+			Dispatcher.Dispatch(new FetchDataAction());
 		}
-		private bool Loading { get; set; }
-		async Task LoadThootles()
+		private bool Loading => DataState.Value.IsLoading;
+		private void DataState_StateChanged(object sender, DataState e)
 		{
-			var apiTootles = await DataService.GetThootlesAsync();
-			thootles.AddRange(apiTootles.Where(apiTootle => !thootles.Any(loadedThootle => apiTootle.Id == loadedThootle.Id)));
-			thootles.Sort((x, y) => DateTime.Compare(y.CreatedTimeUtc, x.CreatedTimeUtc));
+			Console.WriteLine("==========================> DataState");
+			Console.WriteLine($"DataState is {JsonConvert.SerializeObject(DataState.Value)}");
+			Console.WriteLine("<========================== DataState");
 		}
-
-		async Task OnCreate(Thootle thootle)
-		{
-			Loading = true;
-			try
-			{
-				await DataService.PostThootleAsync(thootle);
-			}
-			finally
-			{
-				Loading = false;
-			}
-		}
+		async Task OnCreate(Thootle thootle)=>Dispatcher.Dispatch(new CreateDataAction(thootle));
 
 		async Task OnFinishedPost()
 		{
-			await LoadThootles();
+			//ignore
 		}
 
-		async Task OnThootleDelete(Thootle thootle)
-		{
-			Loading = true;
-			try
-			{
-				await DataService.DeleteThootleAsync(thootle);
-				thootles.Remove(thootle);
-			}
-			catch (Exception)
-			{
-				//ignore
-			}
-			finally
-			{
-				await LoadThootles();
-				Loading = false;
-			}
-		}
+		async Task OnThootleDelete(Thootle thootle) => Dispatcher.Dispatch(new DeleteDataAction(thootle.Id));
 
 		async Task OnThootleEdit(Thootle thootle)
 		{
