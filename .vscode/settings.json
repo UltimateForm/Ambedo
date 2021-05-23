@@ -3,6 +3,7 @@
 		"**/*.css": {"when": "$(basename).scss"},
 		"**/*.min.css": {"when": "$(basename).css"},
 		"**/*.css.map": {"when": "$(basename)"},
-		"**/*.min.css.map": {"when": "$(basename)"}
+		"**/*.min.css.map": {"when": "$(basename)"},
+		"**/*.razor_virtual.html": {"when": "$(basename).razor"}
 	}
 }

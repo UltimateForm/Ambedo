@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Ambedo.UI.Data.Services.Interfaces;
-using Ambedo.Contract.Dtos;
 using Blazorise;
 using Fluxor;
 using Ambedo.UI.Store.Data;
@@ -38,19 +33,6 @@ namespace Ambedo.UI
 			Console.WriteLine("==========================> DataState");
 			Console.WriteLine($"DataState is {JsonConvert.SerializeObject(DataState.Value)}");
 			Console.WriteLine("<========================== DataState");
-		}
-		async Task OnCreate(Thootle thootle)=>Dispatcher.Dispatch(new CreateDataAction(thootle));
-
-		async Task OnFinishedPost()
-		{
-			//ignore
-		}
-
-		async Task OnThootleDelete(Thootle thootle) => Dispatcher.Dispatch(new DeleteDataAction(thootle.Id));
-
-		async Task OnThootleEdit(Thootle thootle)
-		{
-
 		}
 	}
 }

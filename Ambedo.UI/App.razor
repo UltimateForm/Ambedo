@@ -9,14 +9,14 @@
 				<LayoutSiderContent Style="z-index:1">
 					<Bar Mode="BarMode.VerticalInline" CollapseMode="BarCollapseMode.Small" Breakpoint="Breakpoint.Desktop"
 						NavigationBreakpoint="Breakpoint.Tablet" ThemeContrast="ThemeContrast.Dark">
-						<SidebarForm OnFinishedPost="@OnFinishedPost" OnCreate="@OnCreate" />
+						<SidebarForm />
 					</Bar>
 				</LayoutSiderContent>
 			</LayoutSider>
 			<LayoutContent Padding="Padding.Is2.OnAll" class="cardsContainer">
 				@foreach (var thootle in DataState.Value.Thootles)
 				{
-					<ThootleCard Thootle="@thootle" OnDelete="@OnThootleDelete" OnEdit="@OnThootleEdit" />
+					<ThootleCard Thootle="@thootle" />
 				}
 	 </LayoutContent>
 	</Layout>

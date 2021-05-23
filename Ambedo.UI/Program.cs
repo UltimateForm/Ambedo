@@ -11,6 +11,8 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Fluxor;
+using Ambedo.UI.Controllers;
+
 namespace Ambedo.UI
 {
 	public class Program
@@ -22,6 +24,8 @@ namespace Ambedo.UI
 			builder.Services.Configure<AmbedoAPIOptions>(c => builder.Configuration.GetSection(AmbedoAPIOptions.Key).Bind(c));
 			builder.Services.AddScoped<IDataService, DataService>();
 			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+			builder.Services.AddScoped<ThootleCardController>();
+			builder.Services.AddScoped<SidebarFormController>();
 			builder.Services.AddBlazorise(options =>
 			{
 				options.ChangeTextOnKeyPress = true;

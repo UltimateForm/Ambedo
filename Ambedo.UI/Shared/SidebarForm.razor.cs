@@ -7,16 +7,16 @@ using Blazorise;
 using Ambedo.Contract.Dtos;
 using Blazorise.States;
 using Ambedo.UI.Data.Services.Interfaces;
+using Ambedo.UI.Controllers;
 
 namespace Ambedo.UI.Shared
 {
-    public partial class SidebarForm : ComponentBase
-    {
+	public partial class SidebarForm : ComponentBase
+	{
+		[Inject]
+		private SidebarFormController Controller { get; set; }
+
 		#region parameters
-		[Parameter]
-		public EventCallback<Thootle> OnCreate { get; set; }
-		[Parameter]
-		public EventCallback OnFinishedPost { get; set; }
 		[CascadingParameter]
 		protected Theme Theme { get; set; }
 		[CascadingParameter]
@@ -37,37 +37,26 @@ namespace Ambedo.UI.Shared
 		}
 		string ThootleText { get; set; }
 
-        readonly IEnumerable<ThootleCategoryInput> inputCategories = Enum.GetNames(typeof(ThootleCategories)).Select((name, index) => new ThootleCategoryInput { Id = index, Value = name });
+		readonly IEnumerable<ThootleCategoryInput> inputCategories = Enum.GetNames(typeof(ThootleCategories)).Select((name, index) => new ThootleCategoryInput { Id = index, Value = name });
 		IReadOnlyList<int> SelectedCategories { get; set; }
 		private BarState parentBarState;
 
 
 		// @NOTE: i'm aware i could use an actual <form/> but seems overkill for me at this point
-		async Task OnCreateButtonClicked()
+		void OnCreateButtonClicked()
 		{
 			try
 			{
-				await OnCreate.InvokeAsync(new Thootle 
+				Controller.Create(new Thootle
 				{
-                    Content = ThootleText,
-                    Categories = SelectedCategories?.Select(index => (ThootleCategories)index)
-                });
-                //await DataService.PostThootleAsync(new Thootle
-                //{
-                //	Content = thootleText,
-                //	Categories = SelectedCategories?.Select(index => (ThootleCategories)index)
-                //});
-            }
+					Content = ThootleText,
+					Categories = SelectedCategories?.Select(index => (ThootleCategories)index)
+				});
+			}
 			finally
 			{
 				ClearForm();
-				await OnFinishedPost.InvokeAsync();
 			}
-		}
-
-		async Task OnFilterButtonClicked()
-		{
-
 		}
 
 		void ClearForm()
@@ -79,6 +68,14 @@ namespace Ambedo.UI.Shared
 		void OnClearButtonClicked()
 		{
 			ClearForm();
+		}
+		void OnFilterButtonClicked()
+		{
+			Controller.Filter(new Thootle
+			{
+				Content = ThootleText,
+				Categories = SelectedCategories?.Select(index => (ThootleCategories)index)
+			});
 		}
 	}
 }

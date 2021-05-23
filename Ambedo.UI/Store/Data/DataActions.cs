@@ -20,6 +20,7 @@ namespace Ambedo.UI.Store.Data
 	public class CreateDataAction
 	{
 		public Thootle Thootle;
+
 		public CreateDataAction(Thootle thootle)
 		{
 			Thootle = thootle;
