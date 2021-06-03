@@ -53,4 +53,13 @@ namespace Ambedo.UI.Store.Data
 			Id = id;
 		}
 	}
+
+	public class ErrorAction
+	{
+		public string Error;
+		public ErrorAction(string error)
+		{
+			Error = error;
+		}
+	}
 }

@@ -21,6 +21,7 @@ namespace Ambedo.UI
 				VerticalWidth = "400px",
 			},
 		};
+		private Modal stateModalRef;
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
@@ -30,9 +31,22 @@ namespace Ambedo.UI
 		private bool Loading => DataState.Value.IsLoading;
 		private void DataState_StateChanged(object sender, DataState e)
 		{
+			if (!string.IsNullOrEmpty(e.Error))
+			{
+				ShowModal();
+			}
 			Console.WriteLine("==========================> DataState");
 			Console.WriteLine($"DataState is {JsonConvert.SerializeObject(DataState.Value)}");
 			Console.WriteLine("<========================== DataState");
+		}
+		private void ShowModal()
+		{
+			stateModalRef.Show();
+		}
+
+		private void HideModal()
+		{
+			stateModalRef.Hide();
 		}
 	}
 }

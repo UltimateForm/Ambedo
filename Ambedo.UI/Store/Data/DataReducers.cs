@@ -38,5 +38,11 @@ namespace Ambedo.UI.Store.Data
 		{
 			return new DataState(state.Thootles, true);
 		}
+
+		[ReducerMethod]
+		public static DataState ReduceErrorAction(DataState state, ErrorAction action)
+		{
+			return new DataState(state.Thootles, false, action.Error);
+		}
 	}
 }

@@ -48,6 +48,10 @@
   min-width: max-content;
 }
 
+::deep .errorModal {
+  background-color: #001529;
+}
+
 .formContainer {
   width: -webkit-max-content;
   width: -moz-max-content;

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Ambedo.UI.Data.Services.Interfaces;
 using Fluxor;
@@ -16,22 +17,44 @@ namespace Ambedo.UI.Store.Data
 		[EffectMethod]
 		public async Task HandleFetchDataAction(FetchDataAction action, IDispatcher dispatcher)
 		{
-			var thootles = await _dataService.GetThootlesAsync();
-			dispatcher.Dispatch(new FetchDataResultAction(thootles));
+			try
+			{
+				var thootles = await _dataService.GetThootlesAsync();
+				dispatcher.Dispatch(new FetchDataResultAction(thootles));
+			}
+			catch (Exception e)
+			{
+				dispatcher.Dispatch(new ErrorAction(e.Message));
+			}
+
 		}
 
 		[EffectMethod]
 		public async Task HandleCreateDataAction(CreateDataAction action, IDispatcher dispatcher)
 		{
-			var response = await _dataService.PostThootleAsync(action.Thootle);
-			dispatcher.Dispatch(new FetchDataAction());
+			try
+			{
+				var response = await _dataService.PostThootleAsync(action.Thootle);
+				dispatcher.Dispatch(new FetchDataAction());
+			}
+			catch (Exception e)
+			{
+				dispatcher.Dispatch(new ErrorAction(e.Message));
+			}
 		}
 
 		[EffectMethod]
 		public async Task HandleDeleteDataAction(DeleteDataAction action, IDispatcher dispatcher)
 		{
-			await _dataService.DeleteThootleAsync(action.Id);
-			dispatcher.Dispatch(new FetchDataAction());
+			try
+			{
+				await _dataService.DeleteThootleAsync(action.Id);
+				dispatcher.Dispatch(new FetchDataAction());
+			}
+			catch (Exception e)
+			{
+				dispatcher.Dispatch(new ErrorAction(e.Message));
+			}
 		}
 	}
 }

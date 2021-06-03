@@ -4,6 +4,22 @@
 <Fluxor.Blazor.Web.StoreInitializer />
 <div>
 	<Blazorise.ThemeProvider Theme="@theme">
+		<Modal @ref="stateModalRef">
+			<ModalContent Centered="true" class="errorModal">
+				<ModalHeader>
+					<ModalTitle>
+						<Text Color="TextColor.Warning">Error</Text>
+					</ModalTitle>
+					<CloseButton />
+				</ModalHeader>
+				<ModalBody>
+					<Text Color="TextColor.Secondary">@DataState.Value.Error</Text>
+				</ModalBody>
+				<ModalFooter>
+					<Button Color="Color.Warning" Clicked="@HideModal">Close</Button>
+				</ModalFooter>
+			</ModalContent>
+		</Modal>
 		<Layout Sider="true" Loading="Loading">
 			<LayoutSider>
 				<LayoutSiderContent Style="z-index:1">
@@ -18,7 +34,7 @@
 				{
 					<ThootleCard Thootle="@thootle" />
 				}
-	 </LayoutContent>
-	</Layout>
- </Blazorise.ThemeProvider>
+			</LayoutContent>
+		</Layout>
+	</Blazorise.ThemeProvider>
 </div>

@@ -34,7 +34,7 @@ namespace Ambedo.UI.Data.Services
             }
             catch (Exception e)
             {
-                throw new Exception($"Failed to delete thootle {thootleId} because: {e.Message}");
+                throw new Exception($"HTTP request for Thootle deletion failed!\n{e.Message}");
             }
         }
 
@@ -56,7 +56,7 @@ namespace Ambedo.UI.Data.Services
             }
             catch (Exception e)
             {
-                throw new Exception($"Rest request failed with because: {e.Message}");
+                throw new Exception($"HTTP request for Thootle fetch failed!\n{e.Message}");
             }
         }
 
@@ -69,7 +69,7 @@ namespace Ambedo.UI.Data.Services
             }
             catch (Exception e)
             {
-                throw new Exception($"Rest request failed with because: {e.Message}");
+                throw new Exception($"HTTP request for Thootle creation failed!\n{e.Message}");
             }
         }
     }
