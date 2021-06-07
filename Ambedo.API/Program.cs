@@ -23,7 +23,7 @@ namespace Ambedo.API
                                 .MinimumLevel.Debug()
 								.Enrich
 								.FromLogContext().WriteTo
-								.Console(outputTemplate:"[{Timestamp:HH:mm:ss} {Level:u3}] {Message}{NewLine}{Exception} {Properties}")
+								.Console(outputTemplate:"[{Timestamp:HH:mm:ss} {Level:u3}] {Message}{NewLine}{Exception}")
 								.CreateLogger();
 			try
 			{
