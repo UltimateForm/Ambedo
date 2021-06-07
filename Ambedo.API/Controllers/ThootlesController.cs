@@ -6,6 +6,7 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dtos = Ambedo.Contract.Dtos;
+
 namespace Ambedo.API.Controllers
 {
     [ApiController]
@@ -31,7 +32,8 @@ namespace Ambedo.API.Controllers
         public async Task<ActionResult<IEnumerable<Dtos.Thootle>>> Get([FromQuery] string filter)
         {
             var result = await _service.GetThootles(filter);
-            return Ok(_mapper.Map<IEnumerable<Thootle>, IEnumerable<Dtos.Thootle>>(result));
+            var response = _mapper.Map<IEnumerable<Thootle>, IEnumerable<Dtos.Thootle>>(result);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
