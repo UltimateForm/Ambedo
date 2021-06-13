@@ -10,5 +10,6 @@ namespace Ambedo.UI.Data.Services.Interfaces
         Task<int> PostThootleAsync(Thootle thootle);
         Task DeleteThootleAsync(string thootleId);
         Task DeleteThootleAsync(Thootle thootle);
+        Task UpdateThootleAsync(Thootle thootle);
     }
 }

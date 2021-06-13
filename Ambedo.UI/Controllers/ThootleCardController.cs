@@ -20,7 +20,7 @@ namespace Ambedo.UI.Controllers
 
 		public void Edit(Thootle thootle)
 		{
-			//todo
+			_dispatcher.Dispatch(new BeginEditAction(thootle));
 		}
 	}
 }

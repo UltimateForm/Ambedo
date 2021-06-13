@@ -18,5 +18,8 @@ namespace Ambedo.UI.Controllers
 		{
 			//todo
 		}
+
+		public void CancelEdit() => _dispatcher.Dispatch(new CancelEditAction());
+		public void Update(Thootle thootle) => _dispatcher.Dispatch(new UpdateAction(thootle));
 	}
 }

@@ -1,8 +1,8 @@
 ﻿using Ambedo.Contract.Dtos;
 using Ambedo.UI.Controllers;
-using Blazorise;
+using Ambedo.UI.Store.Data;
+using Fluxor;
 using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 
 namespace Ambedo.UI.Shared
 {
@@ -15,6 +15,8 @@ namespace Ambedo.UI.Shared
 		[Inject]
 		private ThootleCardController CardController { get; set; }
 
+		[Inject]
+		public IState<DataState>  State {get; set;}
 		public void Delete() => CardController.Delete(Thootle);
 
 		public void Edit() => CardController.Edit(Thootle);

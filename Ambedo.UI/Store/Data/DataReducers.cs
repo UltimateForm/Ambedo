@@ -44,5 +44,23 @@ namespace Ambedo.UI.Store.Data
 		{
 			return new DataState(state.Thootles, false, action.Error);
 		}
+
+		[ReducerMethod]
+		public static DataState ReduceBeginEdit(DataState state, BeginEditAction action)
+		{
+			return new DataState(state.Thootles, false, stagedThootle:action.Thootle);
+		}
+
+		[ReducerMethod]
+		public static DataState ReduceUpdate(DataState state, UpdateAction action)
+		{
+			return new DataState(state.Thootles, true, stagedThootle:action.Thootle);
+		}
+
+		[ReducerMethod]
+		public static DataState ReduceCancelEdit(DataState state, CancelEditAction action)
+		{
+			return new DataState(state.Thootles, false, stagedThootle:null);
+		}
 	}
 }

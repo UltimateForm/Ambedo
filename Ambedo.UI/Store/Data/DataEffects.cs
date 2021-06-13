@@ -56,5 +56,19 @@ namespace Ambedo.UI.Store.Data
 				dispatcher.Dispatch(new ErrorAction(e.Message));
 			}
 		}
+
+		[EffectMethod]
+		public async Task HandleUpdateAction(UpdateAction action, IDispatcher dispatcher)
+		{
+			try
+			{
+				await _dataService.UpdateThootleAsync(action.Thootle);
+				dispatcher.Dispatch(new FetchDataAction());
+			}
+			catch (System.Exception e)
+			{
+				dispatcher.Dispatch(new ErrorAction(e.Message));
+			}
+		}
 	}
 }

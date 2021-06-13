@@ -8,6 +8,8 @@ using Ambedo.Contract.Dtos;
 using Blazorise.States;
 using Ambedo.UI.Data.Services.Interfaces;
 using Ambedo.UI.Controllers;
+using Fluxor;
+using Ambedo.UI.Store.Data;
 
 namespace Ambedo.UI.Shared
 {
@@ -15,6 +17,8 @@ namespace Ambedo.UI.Shared
 	{
 		[Inject]
 		private SidebarFormController Controller { get; set; }
+		[Inject]
+		private IState<DataState> State { get; set; }
 
 		#region parameters
 		[CascadingParameter]
@@ -42,12 +46,36 @@ namespace Ambedo.UI.Shared
 		private BarState parentBarState;
 
 
+		protected override void OnInitialized()
+		{
+			base.OnInitialized();
+			State.StateChanged += DataState_StateChanged;
+		}
+		public void DataState_StateChanged(object sender, DataState newState)
+		{
+			if (newState.StagedThootle != null)
+			{
+				System.Console.WriteLine("Hello???");
+				ThootleText = newState.StagedThootle.Content;
+				SelectedCategories = newState.StagedThootle.Categories.Select(cat => inputCategories.FirstOrDefault(inptCat => inptCat.Value == cat.ToString()).Id).ToArray();
+			}
+		}
 		// @NOTE: i'm aware i could use an actual <form/> but seems overkill for me at this point
 		void OnCreateButtonClicked()
 		{
 			try
 			{
-				Controller.Create(new Thootle
+				;
+				if (State.Value.EditMode)
+				{
+					Controller.Update(new Thootle
+					{
+						Content = ThootleText,
+						Categories = SelectedCategories?.Select(index => (ThootleCategories)index),
+						Id = State.Value.StagedThootle.Id
+					});
+				}
+				else Controller.Create(new Thootle
 				{
 					Content = ThootleText,
 					Categories = SelectedCategories?.Select(index => (ThootleCategories)index)
@@ -67,6 +95,7 @@ namespace Ambedo.UI.Shared
 
 		void OnClearButtonClicked()
 		{
+			if (State.Value.StagedThootle != null) Controller.CancelEdit();
 			ClearForm();
 		}
 		void OnFilterButtonClicked()

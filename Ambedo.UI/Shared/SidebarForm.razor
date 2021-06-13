@@ -24,9 +24,9 @@
 	<BarEnd Padding="Padding.Is2.OnAll">
 		<BarItem>
 			<div class="horizontalButtonContainer">
-				<Button Disabled="@(string.IsNullOrEmpty(ThootleText) || SelectedCategories == null || !SelectedCategories.Any())" Clicked="@OnCreateButtonClicked" Block="true" Color="Color.Primary">Create</Button>
-				<Button Disabled="@(string.IsNullOrEmpty(ThootleText) && (SelectedCategories == null || !SelectedCategories.Any()))" Clicked="@OnFilterButtonClicked" Block="true" Color="Color.Secondary">Filter</Button>
-				<Button Disabled="@(string.IsNullOrEmpty(ThootleText) && (SelectedCategories == null || !SelectedCategories.Any()))" Clicked="@OnClearButtonClicked" Block="true" Color="Color.Warning">Clear</Button>
+				<Button Disabled="@(string.IsNullOrEmpty(ThootleText) || SelectedCategories == null || !SelectedCategories.Any())" Clicked="@OnCreateButtonClicked" Block="true" Color="Color.Primary">@(State.Value.StagedThootle == null? "Create" : "Save")</Button>
+				<Button Disabled="@(State.Value.StagedThootle != null || string.IsNullOrEmpty(ThootleText) && (SelectedCategories == null || !SelectedCategories.Any()))" Clicked="@OnFilterButtonClicked" Block="true" Color="Color.Secondary">Filter</Button>
+				<Button Disabled="@(string.IsNullOrEmpty(ThootleText) && (SelectedCategories == null || !SelectedCategories.Any()))" Clicked="@OnClearButtonClicked" Block="true" Color="Color.Warning">@(State.Value.StagedThootle == null? "Clear" : "Cancel")</Button>
 			</div>
 		</BarItem>
 

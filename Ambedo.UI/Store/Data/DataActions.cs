@@ -54,6 +54,26 @@ namespace Ambedo.UI.Store.Data
 		}
 	}
 
+	public class BeginEditAction
+	{
+		public Thootle Thootle;
+		public BeginEditAction(Thootle thootle)
+		{
+			Thootle = thootle;
+		}
+	}
+	public class UpdateAction
+	{
+		public Thootle Thootle;
+		public UpdateAction(Thootle thootle)
+		{
+			Thootle = thootle;
+		}
+	}
+	public class CancelEditAction
+	{
+	}
+
 	public class ErrorAction
 	{
 		public string Error;
